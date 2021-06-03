@@ -12,7 +12,7 @@ LABEL com.github.actions.icon="settings"
 LABEL com.github.actions.color="orange"
 COPY couchbase.key couchbase.key
 RUN apt-key add couchbase.key
-COPY couchbase.list couchbase.list
+COPY couchbase.list /etc/apt/sources.list.d/couchbase.list
 
 RUN apt-get update && apt-get install -y zip build-essential llvm-dev libclang-dev clang musl-dev linux-libc-dev musl-tools pkg-config libssl-dev libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev
 
