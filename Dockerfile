@@ -1,17 +1,20 @@
-FROM rust:1.35.0-slim
+FROM rust:1.52.1-buster
 
 LABEL name="rust-musl-builder"
 LABEL version="1.0.0"
-LABEL repository="https://github.com/juankaram/rust-musl-action"
-LABEL homepage="https://github.com/juankaram/rust-musl-action"
+LABEL repository="https://github.com/himanshumps/rust-musl-action"
+LABEL homepage="https://github.com/himanshumps/rust-musl-action"
 LABEL maintainer="Juan Karam"
 
 LABEL com.github.actions.name="Rust MUSL Builder"
 LABEL com.github.actions.description="Provides a Rust MUSL environment"
 LABEL com.github.actions.icon="settings"
 LABEL com.github.actions.color="orange"
+COPY couchbase.key couchbase.key
+RUN apt-key add couchbase.key
+COPY couchbase.list couchbase.list
 
-RUN apt-get update && apt-get install -y zip build-essential musl-tools pkg-config libssl-dev
+RUN apt-get update && apt-get install -y zip build-essential llvm-dev libclang-dev clang musl-dev linux-libc-dev musl-tools pkg-config libssl-dev libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev
 
 ENV BUILD_DIR=/build \
     OUTPUT_DIR=/output \
@@ -20,7 +23,7 @@ ENV BUILD_DIR=/build \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
     PREFIX=/toolchain \
-    MUSL_VERSION=1.1.22 \
+    MUSL_VERSION=1.2.0 \
     OPENSSL_VERSION=1.1.0k \
     BUILD_TARGET=x86_64-unknown-linux-musl
 
