@@ -26,7 +26,7 @@ RUN yum -y install install -y \
     tar xf libcouchbase-3.1.1_centos7_x86_64.tar && \
     cd libcouchbase-3.1.1_centos7_x86_64 && \
     yum install -y libcouchbase*.rpm && \
-    cd .. && \
+    cd - && \
     yum -y install  libev-dev libev-devel libevent-dev libevent-devel wget && \
     wget -q https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-Linux-x86_64.sh && \
     chmod 777 cmake-3.19.3-Linux-x86_64.sh && \
