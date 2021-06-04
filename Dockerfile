@@ -22,9 +22,9 @@ RUN yum -y install install -y \
     https://repo.ius.io/ius-release-el7.rpm \
     https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
-    curl -O https://packages.couchbase.com/clients/c/libcouchbase-3.1.1_centos8_x86_64.tar && \
-    tar xf libcouchbase-3.1.1_centos8_x86_64.tar && \
-    cd libcouchbase-3.1.1_centos8_x86_64 && \
+    curl -O https://packages.couchbase.com/clients/c/libcouchbase-3.1.1_centos7_x86_64.tar && \
+    tar xf libcouchbase-3.1.1_centos7_x86_64.tar && \
+    cd libcouchbase-3.1.1_centos7_x86_64 && \
     yum install -y libcouchbase*.rpm && \
     cd .. && \
     yum -y install  libev-dev libev-devel libevent-dev libevent-devel wget && \
