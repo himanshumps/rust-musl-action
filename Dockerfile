@@ -13,7 +13,7 @@ LABEL com.github.actions.color="orange"
 COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-    yum-config-manager --enable \* && \ 
+    yum-config-manager --enable \* > /dev/null && \ 
     yum -y install rust cargo rustup openssl clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
     yum clean all -y
 
