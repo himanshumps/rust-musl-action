@@ -23,7 +23,7 @@ COPY ./root /
 ENV BUILD_DIR=/build \
     OUTPUT_DIR=/output \
     RUST_BACKTRACE=1 \
-    PREFIX=/toolchain \
+    PREFIX=/toolchain
 
 RUN mkdir -p $BUILD_DIR \
     && mkdir -p $OUTPUT_DIR \
