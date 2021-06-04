@@ -19,7 +19,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-too
 COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum-config-manager --enable \* > /dev/null && \ 
-    yum -y installlibcouchbase3 libcouchbase-dev libcouchbase-devel libcouchbase-dbg libcouchbase3-tools libcouchbase3-libevent libcouchbase3-libev libev-dev libev-devel libevent-dev libevent-devel && \
+    yum -y install libcouchbase3 libcouchbase-dev libcouchbase-devel libcouchbase-dbg libcouchbase3-tools libcouchbase3-libevent libcouchbase3-libev libev-dev libev-devel libevent-dev libevent-devel && \
     yum-config-manager --enable \* > /dev/null && \ 
     yum -y install wget && \
     wget -q https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-Linux-x86_64.sh && \
