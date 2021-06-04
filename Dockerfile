@@ -29,7 +29,7 @@ RUN mkdir -p $BUILD_DIR \
 WORKDIR $PREFIX
 
 WORKDIR $BUILD_DIR
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --profile default --default-toolchain stable
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
 RUN rustup self update && rustup update
 RUN rustup target add $BUILD_TARGET
 RUN rustup component add clippy-preview
