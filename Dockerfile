@@ -14,8 +14,14 @@ COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
-    yum -y install rust cargo rustup openssl clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
+    yum -y install openssl clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
     yum clean all -y
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
+
+ENV PATH=$PATH:$HOME/.cargo/bin \
+    RUSTUP_HOME=$HOME/.rustup \
+    CARGO_HOME=$HOME/.cargo
 
 ENV BUILD_DIR=/build \
     OUTPUT_DIR=/output \
@@ -29,10 +35,6 @@ RUN mkdir -p $BUILD_DIR \
 WORKDIR $PREFIX
 
 WORKDIR $BUILD_DIR
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
-ENV PATH=$PATH:$HOME/.cargo/bin \
-    RUSTUP_HOME=$HOME/.rust \
-    CARGO_HOME=$HOME/.cargo
 RUN rustup self update && rustup update
 RUN rustup target add $BUILD_TARGET
 RUN rustup component add clippy-preview
