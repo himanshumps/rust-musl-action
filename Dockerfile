@@ -18,7 +18,9 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-too
 
 COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
-RUN yum -y install epel-release && \
+RUN yum -y install install -y \
+    https://repo.ius.io/ius-release-el7.rpm \
+    https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
     curl -O https://packages.couchbase.com/clients/c/libcouchbase-3.1.1_centos8_x86_64.tar && \
     tar xf libcouchbase-3.1.1_centos8_x86_64.tar && \
