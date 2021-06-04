@@ -18,16 +18,19 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-too
 
 COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
-RUN yum-config-manager --enable \* > /dev/null && \ 
-    yum -y install libcouchbase3 libcouchbase-dev libcouchbase-devel libcouchbase-dbg libcouchbase3-tools libcouchbase3-libevent libcouchbase3-libev libev-dev libev-devel libevent-dev libevent-devel && \
+RUN yum -y install epel-release && \
     yum-config-manager --enable \* > /dev/null && \ 
-    yum -y install wget && \
+    curl -O https://packages.couchbase.com/clients/c/libcouchbase-3.1.1_centos8_x86_64.tar && \
+    tar xf libcouchbase-3.1.1_centos8_x86_64.tar && \
+    cd libcouchbase-3.1.1_centos8_x86_64 && \
+    yum install -y libcouchbase*.rpm && \
+    cd .. && \
+    yum -y install  libev-dev libev-devel libevent-dev libevent-devel wget && \
     wget -q https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-Linux-x86_64.sh && \
     chmod 777 cmake-3.19.3-Linux-x86_64.sh && \
     /bin/sh ./cmake-3.19.3-Linux-x86_64.sh --skip-licence --prefix=/usr/local --exclude-subdir && \
     yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
-    yum group install "Development tools" && \
     yum -y install git-all perl-core pkg-config cmake make g++ make gcc gcc-c++ openssl openssl-devel clang-devel  && \
     yum clean all -y
 
