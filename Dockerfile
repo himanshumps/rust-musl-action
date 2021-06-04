@@ -13,15 +13,15 @@ LABEL com.github.actions.color="orange"
 ENV PATH=$PATH:$HOME/.cargo/bin \
     RUSTUP_HOME=$HOME/.rustup \
     CARGO_HOME=$HOME/.cargo
-    
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
+
 COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
-    yum -y install perl-core pkg-config cmake gcc openssl openssl-devel clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
+    yum -y install perl-core pkg-config cmake gcc g++ openssl openssl-devel clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
     yum clean all -y
-
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
 
 COPY entrypoint.sh /entrypoint.sh
 
