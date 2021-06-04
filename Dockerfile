@@ -3,7 +3,7 @@ LABEL name="rust-musl-builder"
 LABEL version="1.0.0"
 LABEL repository="https://github.com/himanshumps/rust-musl-action"
 LABEL homepage="https://github.com/himanshumps/rust-musl-action"
-LABEL maintainer="Juan Karam"
+LABEL maintainer="Himanshu Gupta"
 
 LABEL com.github.actions.name="Rust MUSL Builder"
 LABEL com.github.actions.description="Provides a Rust MUSL environment"
@@ -16,9 +16,6 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum-config-manager --enable \* && \ 
     yum -y install rust cargo openssl clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
     yum clean all -y
-
-COPY ./root /
-
 
 ENV BUILD_DIR=/build \
     OUTPUT_DIR=/output \
