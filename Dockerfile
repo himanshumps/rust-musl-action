@@ -37,11 +37,6 @@ RUN mkdir -p $BUILD_DIR \
 WORKDIR $PREFIX
 
 WORKDIR $BUILD_DIR
-RUN rustup self update && rustup update
-RUN rustup component add clippy-preview
-RUN rustup component add rustfmt-preview
-RUN cargo install cargo-release
-
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
