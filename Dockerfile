@@ -31,7 +31,7 @@ RUN yum -y install install -y \
     wget -q https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-Linux-x86_64.sh && \
     chmod 777 cmake-3.19.3-Linux-x86_64.sh && \
     /bin/sh ./cmake-3.19.3-Linux-x86_64.sh --skip-licence --prefix=/usr/local --exclude-subdir && \
-    yum -y install perl-core pkg-config cmake make g++ make gcc gcc-c++ openssl openssl-devel clang-devel  && \
+    yum -y install pkg-config cmake make g++ make gcc gcc-c++ openssl openssl-devel clang-devel  && \
     yum clean all -y
 
 COPY entrypoint.sh /entrypoint.sh
