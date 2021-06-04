@@ -38,7 +38,6 @@ WORKDIR $PREFIX
 
 WORKDIR $BUILD_DIR
 RUN rustup self update && rustup update
-RUN rustup target add $BUILD_TARGET
 RUN rustup component add clippy-preview
 RUN rustup component add rustfmt-preview
 RUN cargo install cargo-release
