@@ -23,20 +23,6 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
 
-
-
-ENV BUILD_DIR=/build \
-    OUTPUT_DIR=/output \
-    RUST_BACKTRACE=1 \
-    PREFIX=/toolchain
-
-RUN mkdir -p $BUILD_DIR \
-    && mkdir -p $OUTPUT_DIR \
-    && mkdir -p $PREFIX
-
-WORKDIR $PREFIX
-
-WORKDIR $BUILD_DIR
-
 COPY entrypoint.sh /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
