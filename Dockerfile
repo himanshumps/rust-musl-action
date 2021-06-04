@@ -30,7 +30,9 @@ WORKDIR $PREFIX
 
 WORKDIR $BUILD_DIR
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
-RUN source $HOME/.cargo/env
+ENV PATH=$PATH:$HOME/.cargo/bin \
+    RUSTUP_HOME=$HOME/.rust \
+    CARGO_HOME=$HOME/.cargo
 RUN rustup self update && rustup update
 RUN rustup target add $BUILD_TARGET
 RUN rustup component add clippy-preview
