@@ -21,7 +21,7 @@ COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
     yum group install "Development tools" && \
-    yum -y install git-all perl-core pkg-config cmake gcc gcc-c++ openssl openssl-devel clang-devel libcouchbase3 libcouchbase-devel libcouchbase3-tools && \
+    yum -y install git-all perl-core pkg-config cmake make g++ make gcc gcc-c++ openssl openssl-devel clang-devel libcouchbase3 libcouchbase-devel libcouchbase3-tools && \
 #    libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
     yum clean all -y
 
