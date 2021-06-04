@@ -10,64 +10,26 @@ LABEL com.github.actions.description="Provides a Rust MUSL environment"
 LABEL com.github.actions.icon="settings"
 LABEL com.github.actions.color="orange"
 
-COPY couchbase.key couchbase.key
-RUN apt-key add couchbase.key
-
-COPY couchbase.list /etc/apt/sources.list.d/couchbase.list
+COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* && \ 
-    yum repolist all && \
-    yum -y install rust cargo openssl && \
-    rpm -V rust cargo && \
+    yum -y install rust cargo openssl clang-devel libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev && \
     yum clean all -y
 
 COPY ./root /
 
 
-RUN apt-get update && apt-get install -y zip build-essential llvm-dev libclang-dev clang musl-dev linux-libc-dev musl-tools pkg-config libssl-dev libcouchbase3 libcouchbase-dev libcouchbase3-tools libcouchbase-dbg libcouchbase3-libev libcouchbase3-libevent libev-dev libevent-dev
-
 ENV BUILD_DIR=/build \
     OUTPUT_DIR=/output \
     RUST_BACKTRACE=1 \
-    RUSTUP_HOME=/usr/local/rustup \
-    CARGO_HOME=/usr/local/cargo \
-    PATH=/usr/local/cargo/bin:$PATH \
     PREFIX=/toolchain \
-    MUSL_VERSION=1.2.0 \
-    OPENSSL_VERSION=1.1.0k \
-    BUILD_TARGET=x86_64-unknown-linux-musl
 
-RUN mkdir -p /usr/local/cargo/bin \
-    && mkdir -p $BUILD_DIR \
+RUN mkdir -p $BUILD_DIR \
     && mkdir -p $OUTPUT_DIR \
     && mkdir -p $PREFIX
 
 WORKDIR $PREFIX
-
-ADD http://www.musl-libc.org/releases/musl-$MUSL_VERSION.tar.gz .
-RUN tar -xvzf musl-$MUSL_VERSION.tar.gz \
-    && cd musl-$MUSL_VERSION \
-    && ./configure --prefix=$PREFIX \
-    && make install \
-    && cd ..
-
-ENV CC=$PREFIX/bin/musl-gcc \
-    C_INCLUDE_PATH=$PREFIX/include/ \
-    CPPFLAGS=-I$PREFIX/include \
-    LDFLAGS=-L$PREFIX/lib
-
-ADD https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz .
-
-RUN echo "Building OpenSSL" \
-    && tar -xzf "openssl-$OPENSSL_VERSION.tar.gz" \
-    && cd openssl-$OPENSSL_VERSION \
-    && ./Configure no-async no-afalgeng no-shared no-zlib -fPIC --prefix=$PREFIX --openssldir=$PREFIX/ssl linux-x86_64 \
-    && make depend \
-    && make install
-
-ENV OPENSSL_DIR=$PREFIX \
-    OPENSSL_STATIC=true
 
 WORKDIR $BUILD_DIR
 
