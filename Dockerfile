@@ -20,7 +20,7 @@ COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum-config-manager --enable \* > /dev/null && \ 
-    wget https://cmake.org/files/v3.11/cmake-3.19.3-Linux-x86_64.sh && \
+    curl -O https://cmake.org/files/v3.11/cmake-3.19.3-Linux-x86_64.sh && chmod 777 cmake-3.19.3-Linux-x86_64.sh && \
     /bin/sh ./cmake-3.19.3-Linux-x86_64.sh --skip-licence --prefix=/usr/local --exclude-subdir && \
     yum group install "Development tools" && \
     yum -y install git-all perl-core pkg-config cmake make g++ make gcc gcc-c++ openssl openssl-devel clang-devel libcouchbase3 libcouchbase-devel libcouchbase3-tools && \
