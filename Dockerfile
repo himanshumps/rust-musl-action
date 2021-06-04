@@ -10,6 +10,10 @@ LABEL com.github.actions.description="Provides a Rust MUSL environment"
 LABEL com.github.actions.icon="settings"
 LABEL com.github.actions.color="orange"
 
+ENV PATH=$PATH:$HOME/.cargo/bin \
+    RUSTUP_HOME=$HOME/.rustup \
+    CARGO_HOME=$HOME/.cargo
+    
 COPY couchbase.repo /etc/yum.repos.d/couchbase.repo
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
@@ -19,9 +23,7 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
 
-ENV PATH=$PATH:$HOME/.cargo/bin \
-    RUSTUP_HOME=$HOME/.rustup \
-    CARGO_HOME=$HOME/.cargo
+
 
 ENV BUILD_DIR=/build \
     OUTPUT_DIR=/output \
