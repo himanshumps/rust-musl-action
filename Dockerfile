@@ -13,7 +13,7 @@ LABEL com.github.actions.color="orange"
 ENV PATH=$PATH:$HOME/.cargo/bin \
     RUSTUP_HOME=$HOME/.rustup \
     CARGO_HOME=$HOME/.cargo
-
+RUN yum -y install gcc
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile default --default-toolchain stable
 
 COPY entrypoint.sh /entrypoint.sh
